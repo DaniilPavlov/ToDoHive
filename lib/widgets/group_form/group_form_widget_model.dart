@@ -35,8 +35,9 @@ class GroupFormWidgetModelProvider extends InheritedWidget {
     return widget is GroupFormWidgetModelProvider ? widget : null;
   }
 
+//чтобы не перерисовывать виджеты - false
   @override
   bool updateShouldNotify(GroupFormWidgetModelProvider oldWidget) {
-    return true;
+    return false;
   }
 }
