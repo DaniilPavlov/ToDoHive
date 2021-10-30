@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:todos_hive/domain/entity/group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todos_hive/domain/entity/task.dart';
+import 'package:todos_hive/ui/navigation/main_navigation.dart';
 
 class TasksWidgetModel extends ChangeNotifier {
   int groupKey;
@@ -44,7 +45,7 @@ class TasksWidgetModel extends ChangeNotifier {
   }
 
   void showForm(BuildContext context) {
-    Navigator.of(context).pushNamed('groups/tasks/form', arguments: groupKey);
+    Navigator.of(context).pushNamed(MainNavigationRouteNames.tasksForm, arguments: groupKey);
   }
 
   void _readTasks() {

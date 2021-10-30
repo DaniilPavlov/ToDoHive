@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:todos_hive/widgets/groups/groups_widget_model.dart';
+import 'package:todos_hive/ui/widgets/groups/groups_widget_model.dart';
 
 class GroupsWidget extends StatefulWidget {
   const GroupsWidget({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class _GroupListRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = GroupsWidgetModelProvider.read(context)!.model;
-    final group =model.groups[indexInList];
+    final group = model.groups[indexInList];
     return Slidable(
       actionPane: const SlidableBehindActionPane(),
       secondaryActions: <Widget>[
