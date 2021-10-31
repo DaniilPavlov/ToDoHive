@@ -2,9 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todos_hive/ui/widgets/tasks/tasks_widget_model.dart';
 
-class TasksWidget extends StatefulWidget {
+//добавили для того, чтобы кроме ID группы в навигации можно было передавать
+//еще и название группы
+class TaskWidgetConfiguration {
   final int groupKey;
-  const TasksWidget({Key? key, required this.groupKey}) : super(key: key);
+  final String title;
+
+  TaskWidgetConfiguration(this.groupKey, this.title);
+}
+
+class TasksWidget extends StatefulWidget {
+  final TaskWidgetConfiguration configuration;
+
+  const TasksWidget({Key? key, required this.configuration}) : super(key: key);
 
   @override
   _TasksWidgetState createState() => _TasksWidgetState();
@@ -16,7 +26,7 @@ class _TasksWidgetState extends State<TasksWidget> {
   @override
   void initState() {
     super.initState();
-    _model = TasksWidgetModel(groupKey: widget.groupKey);
+    _model = TasksWidgetModel(configuration: widget.configuration);
   }
 
   @override
@@ -26,6 +36,12 @@ class _TasksWidgetState extends State<TasksWidget> {
       child: _TasksWidgetBody(),
     );
   }
+
+  @override
+  void dispose() async {
+   await _model.dispose();
+    super.dispose();
+  }
 }
 
 class _TasksWidgetBody extends StatelessWidget {
@@ -34,7 +50,7 @@ class _TasksWidgetBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = TasksWidgetModelProvider.watch(context)?.model;
-    final title = model?.group?.name ?? 'Tasks';
+    final title = model?.configuration.title ?? 'Tasks';
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
